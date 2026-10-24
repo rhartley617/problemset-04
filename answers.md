@@ -1,7 +1,7 @@
 # CMPS 6610 Problem Set 04
 ## Answers
 
-**Name:**_________________________
+**Name:** $\underline{\hspace{1in}\text{Rob Hartley}\hspace{1in}}$
 
 
 Place all written answers from `problemset-04.md` here for easier grading.
