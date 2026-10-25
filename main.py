@@ -1,5 +1,6 @@
 import math, queue
 from collections import Counter
+from pathlib import Path
 
 ####### Problem 1 #######
 
@@ -68,10 +69,30 @@ def huffman_cost(C, f):
     return sum(f[c] * len(C[c]) for c in f)
 
 if __name__ == "__main__":
-    f = get_frequencies('f1.txt')
-    print("Fixed-length cost:  %d" % fixed_length_cost(f))
-    T = make_huffman_tree(f)
-    C = get_code(T)
-    print("Huffman cost:  %d" % huffman_cost(C, f))
+    # f = get_frequencies('f1.txt')
+    # print("Fixed-length cost:  %d" % fixed_length_cost(f))
+    # T = make_huffman_tree(f)
+    # C = get_code(T)
+    # print("Huffman cost:  %d" % huffman_cost(C, f))
 
+
+    extensions = {".txt", ".c", ".lsp"}
+
+    files = [
+        file.name
+        for file in Path(".").iterdir()
+        if file.is_file() and file.suffix in extensions
+    ]
+
+    for file in files:
+        f = get_frequencies(file)
+        print(f"File: {file}")
+        fl = fixed_length_cost(f)
+        print("Fixed-length cost:  %d" % fl)
+        T = make_huffman_tree(f)
+        C = get_code(T)
+        hc = huffman_cost(C, f)
+        print("Huffman cost:  %d" % hc)
+        print("Huffman/Fixed Length:  %.4f" % (hc/fl))
+        print()
 

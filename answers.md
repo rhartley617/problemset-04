@@ -13,11 +13,11 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 File | Fixed-Length Coding | Huffman Coding | Huffman vs. Fixed-Length
 ----------------------------------------------------------------------
-f1.txt    |                     |                |
-alice29.txt    |                     |                |
-asyoulik.txt    |                     |                |
-grammar.lsp    |                     |                |
-fields.c    |                     |                |
+f1.txt    |      $1340$               |     $826$           |  $0.6164$
+alice29.txt    |         $1039367$            |         $676374$       |  $0.6508$
+asyoulik.txt    |         $876253$            |        $606448$        |  $0.6921$
+grammar.lsp    |            $26047$         |     $17356$           |  $0.6663$
+fields.c    |            $78050$         |        $56206$        |  $0.7201$
 
 
 
