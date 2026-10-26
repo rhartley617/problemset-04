@@ -23,17 +23,22 @@ The pattern that emerges is that:
 Huffman cost $\leq$ Fixed-Length cost. This is because Huffman coding achieves a lower encoding cost relative to Fixed Length by assigning shorter binary codes to more frequently used characters and longer codes to less fequently used characters. The more uneven the distribution between frequencies of the characters being used in a document, the greater the Huffman cost reduction we'd expect to see. Our samples reflect that, and show a cost recution range of roughly 28% - 38%.  
 
 - **1e.**  
-With $b$ bits, we can represent $2^b$ distinct characters.  
-This equation relates bits to alphabet size $|\sum|$:  
-$2^b = |\sum|$  
-Huffman coding normally varies the bit size of each letter according to its relative freqency in the document, with higher frequency characters receiving smaller sized codes.  
-Because the freqency of each letter of the alphabet $\sum$ is the same in the documents we're considering, Huffman coding will assign each letter in $\sum$ to a leaf in a balanced tree, which will result in each letter having the same bit size. This size will increase with the total number of distict letters in the alphabet being used $|\sum|$.  
-With an integer ceiling to account for cases where $|\sum|$ is odd, the size of each character will be: $b = \lceil\log_2|\sum|\rceil$  
-Because each letter has the same cost and freqency, we're only concerned with the total number of letters $n$ and the cost of each letter when determining the total cost per document:  
+When all characters in alphabet $\sum$ have the same frequency, Huffman coding produces either a balanced or near balanced tree.  
+Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. The codeword length for each character in the tree will be either $h$ or $h - 1$ with $2^h - c$ characters using $h - 1$ bits and $2c - 2^h$ characters using $h$ bits. From this information, we can determine average number of bits per character $A_b$ with this equation:  
 
-    $\boxed{\text{Document coding cost} = n \cdot \lceil\log_2|\sum|\rceil}$
+    $A_b = \frac{(2^h - c)(h - 1) + (2c - 2^h)(h)}{c}$  
+      
+    $A_b = \frac{2^hh -2^h - ch + c + 2ch -2^hh}{c}$  
 
-    This equation would be consitant across documents provided all character freqencies within the document remained the same.
+    $A_b = \frac{-2^h + c + ch}{c}$  
+
+    $A_b = h + 1 - \frac{2^h}{c}$  
+
+    If we have $n$ total number of characters in our document and the frequency of each distinct charactor is the same, then the Huffman coding cost would be:  
+
+    $\boxed{\text{Huffman Cost} = n \cdot \left(h + 1 - \frac{2^h}{c}\right)}$  
+
+    This equation applies to all documents where each distinct character occurs with equal frequency. The Huffman coding cost will be consistent across documents with the same total number of characters $n$ and the same number of distinct characters $c$. However, the coding cost may change if either $n$ or $c$ changes.
 
 
 
