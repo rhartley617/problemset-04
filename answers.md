@@ -105,7 +105,9 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
     $\boxed{W_{total} \in \Theta(n)}$
 
 
-- **2b.** Span of your algorithm
+- **2b.** Span of your algorithm  
+There is no parallelism in the algorithm. The buildHeap loop executes sequentially, as do all the operations in siftDown. Span = Work.  
+$\boxed{S_{total} \in \Theta(n)}$
 
 
 
