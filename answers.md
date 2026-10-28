@@ -45,9 +45,64 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
 
 
 
-- **2a.** Construct a binary min-heap algorithm
+- **2a.** Construct a binary min-heap algorithm  
+
+    This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working it's way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an inernal node in the list, and all other index values below it will also represent internal nodes, we then increment down one entry in the list and repeat the process until we reach the root node. The min-heap is now built.  
+
+    ```text
+    def sift_down(A, i, n):
+        while 2*i + 1 < n:
+            left = 2*i + 1
+            right = 2*i + 2
+            smallest = left
+
+            if right < n and A[right] < A[left]:
+                smallest = right
+
+            if A[i] <= A[smallest]:
+                break
+
+            A[i], A[smallest] = A[smallest], A[i]
+            i = smallest
 
 
+    def build_min_heap(A):
+        n = len(A)
+
+        for i in range(n // 2 - 1, -1, -1):
+            sift_down(A, i, n)
+    ```
+    buildMinHeap:  
+    This method is a loop that executes $\frac{n}{2}$ times, doing constant work each time, excluding the call to siftDown.
+    $W_{BH}(n) = \sum_{i=1}^{\frac{n}{2}} \Theta(1)$  
+    $W_{BH}(n) = \frac{n}{2} \cdot \Theta(1)$  
+    $W_{BH}(n) = \frac{n}{2}$  
+    $W_{BH}(n) \in \Theta(n)$  
+
+    siftDown:  
+    Each node can move downward by no more than its height $h$ in the tree. Each move costs $\Theta(1)$. So each node requires at most $O(h + 1)$ work.
+    There are at most $\lceil\frac{n}{2^{h + 1}}\rceil$ internal nodes. Therefore:  
+
+    $W_{SD} = O\left(n\sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}}\right)$  
+    $\sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} = \frac{1}{2^1} + \frac{2}{2^2} + \frac{3}{2^3} + \frac{4}{2^4} + \dots = \frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + \dots$  
+    $\left(\frac{1}{2}\right) \cdot \sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} = \left(\frac{1}{2}\right) \cdot \left(\frac{1}{2^1} + \frac{2}{2^2} + \frac{3}{2^3} + \frac{4}{2^4} + \dots\right) = \frac{1}{4} + \frac{2}{8} + \frac{3}{16} + \frac{4}{32} + \dots$  
+    $\sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} - \left(\frac{1}{2}\right) \cdot \sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \dots = \sum_{h=0}^{\infty}(\frac{1}{2})^{(h+1)}$
+
+    Infinite Geometric Series  
+    $\sum_{i=0}^{\infty}ar^k = \frac{a}{1 - r}, |r| < 1$  
+    $\sum_{h=0}^{\infty}(\frac{1}{2})^{(h+1)},  a = \frac{1}{2}, r = \frac{1}{2}$  
+    $\sum_{h=0}^{\infty}(\frac{1}{2})^{(h+1)} = \frac{1/2}{1 - 1/2} = 1$  
+
+    Combine  
+    $\left(\frac{1}{2}\right) \cdot \sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} = 1$  
+    $\sum_{h=0}^{\lfloor\log_2 n\rfloor}\frac{h+1}{2^{h+1}} = 2$  
+    $W_{SD} = O(2n)$  
+    $W_{SD} \in O(n)$  
+
+    $W_{total} = W_{BH}(n) + W_{SD}$  
+    $W_{total} = \Theta(n) + O(n)$  
+
+    $\boxed{W_{total} \in \Theta(n)}$
 
 
 - **2b.** Span of your algorithm
