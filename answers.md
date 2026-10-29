@@ -49,7 +49,7 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
 
     This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working it's way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an inernal node in the list, and all other index values below it will also represent internal nodes, we then decrement the index and repeat the process until we reach the root node. The min-heap is now built.  
 
-    ```text
+    ```python
     def sift_down(A, i, n):
         while 2*i + 1 < n:
             left = 2*i + 1
@@ -113,7 +113,7 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 
 - **3a.** Greedy algorithm for making change  
-    ```text
+    ```python
         def greedyCoins(N, k):
         coins = []
         remaining = N
@@ -181,7 +181,41 @@ A problem has the optimal substructure property if an optimal solution to the pr
 
 
 
-- **4c.** Fortuito dynamic programming algorithm
+- **4c.** Fortuito dynamic programming algorithm  
+    ```python
+
+    def minCoins(N, denominations):
+        OPT = [float('inf')] * (N + 1)
+        chosen = [None] * (N + 1)
+
+        OPT[0] = 0
+
+        for n in range(1, N + 1):
+            for d in denominations:
+                if d <= n and OPT[n - d] + 1 < OPT[n]:
+                    OPT[n] = OPT[n - d] + 1
+                    chosen[n] = d
+
+        if OPT[N] == float('inf'):
+            return None
+
+        coins = []
+        remaining = N
+
+        while remaining > 0:
+            d = chosen[remaining]
+            coins.append(d)
+            remaining -= d
+
+        return OPT[N], coins
+
+
+    print(minCoins(6, [1, 3, 4]))
+    # (2, [3, 3])
+
+    print(minCoins(5, [2, 4]))
+    # None: impossible to make 5
+    ```
 
 
 
