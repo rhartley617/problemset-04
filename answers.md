@@ -165,7 +165,7 @@ $W(k) = \Theta(k)$
 
 
 - **4a.** Fortuito counter example proof  
-Suppose we have denonimations $D = {1,3,4}$ and a goal amount of $N$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not optimal with arbitrary denominations like the ones in Fortuito.
+Suppose we have denonimations $D = {1,3,4}$ and a goal amount of $N$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not always optimal with arbitrary denominations like the ones in Fortuito. $\blacksquare$
 
 
 
