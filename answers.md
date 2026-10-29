@@ -113,19 +113,19 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 
 - **3a.** Greedy algorithm for making change  
-```text
-    def greedyCoins(N, k):
-    coins = []
-    remaining = N
+    ```text
+        def greedyCoins(N, k):
+        coins = []
+        remaining = N
 
-    for i in range(k, -1, -1):
-        denomination = 2 ** i
-        count = remaining // denomination
-        remaining = remaining % denomination
-        coins.append((denomination, count))
+        for i in range(k, -1, -1):
+            denomination = 2 ** i
+            count = remaining // denomination
+            remaining = remaining % denomination
+            coins.append((denomination, count))
 
-    return coins  
-```
+        return coins  
+    ```
 
 
 
@@ -169,7 +169,14 @@ Suppose we have denonimations $D = {1,3,4}$ and a goal amount of $N$. The greedy
 
 
 
-- **4b.** Optimal substructure property
+- **4b.** Optimal substructure property  
+A problem has the optimal substructure property if an optimal solution to the problem contains optimal solutions to its subproblems.  
+
+    For an optimal solution to the coin problem, if the optimal solution for amount $N$ contains a coin of denomination $d$, then the remaining coins must form an optimal solution for $N - d$.  
+
+    Suppose we had an optimal solution for $N$ using $c$ coins, including coin $d$. If we remove coin $d$, then $c -1$ remaining coins should be an optimal solution for $N - d$. If this were not the case, and we could then have an optimal solution to $N - d$ with fewer coins than $c -1$, that would imply that we could then add coin $d$ to this smaller set of coins to get a new optimal solution for $N$ using fewer than $c$ coins. This would contradict the optimality of the original solution for $N$ using $c$ coins.  
+
+    Therefore the coin problem has optimal substructure property. $\blacksquare$
 
 
 
