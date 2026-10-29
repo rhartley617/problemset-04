@@ -130,7 +130,21 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 
 - **3b.** Optimality proof  
-The optimal solution for this problem is to return a combination of the minimum total number of coins that will 
+The optimal solution for this problem is to return a combination of the minimum total number of coins that, based on their denomination, will add up to a total of $N$.  
+The denomination we are using are coins that are in denominations of powers of 2. Consider any denomination valued $2^i$, with $2^k$ representing the maximum denonmination that can be used to divide the total value $N$.  
+Any 2 coins of denomination $2^i$ can be replaced by one coin of the next highest denomination: $2^i + 2^i = 2^{i+1}$ Therefore an optimal solution cannot contain any more than 1 coin of any denomination smaller than $2^k$.  
+The total value of these coins smaller than $2^k$ would be $\sum_{i=0}^{k-1}2^i$  
+Finite Geometric series formula: $\sum_{i=0}^{n-1} ar^i = a \cdot \frac{1 - r^n}{1 - r}$  
+For $\sum_{i=0}^{k-1}2^i$ where $a = 1, r = 2$ this gives us $1 \cdot \frac{1 - 2^k}{1 - 2} = 2^k - 1$ maximum total value for coins with denominations less than $2^k$.  
+Consider the division algorithm with remainder $r$, total coin value $N$, and number of largest denomination coins $q$, and largest denomination value $d$:  
+$N = qd + r$ where $q = \lfloor\frac{N}{d}\rfloor$ and $0 \leq r < d$  
+This gives us: $N = q2^k + r, 0 \leq r < 2^k$ where $q = \lfloor\frac{N}{2^k}\rfloor$  
+This matches the greedy choice.  
+
+    Suppose an optimal solution for $N$ contains the greedy choice of $q$ largest coins, but the solution for the remainder $r$ is not optimal. This would mean that a solution for $r$ that uses less coins exists, and that replacing the original solution for $r$ with this new solution would reduce the total number of coins used to get $N$. This would contradict the assumption that the original solution was optimal, and would require that the remaining amount also be solved optimally. Therefore the optimal substructure property holds. The greedy algorithm produces the minimum number of coins  
+
+    The greedy alogrithm is optimal $\blacksquare$
+
 
 
 
