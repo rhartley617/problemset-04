@@ -112,11 +112,25 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 
 
-- **3a.** Greedy algorithm for making change
+- **3a.** Greedy algorithm for making change  
+```text
+    def greedyCoins(N, k):
+    coins = []
+    remaining = N
+
+    for i in range(k, -1, -1):
+        denomination = 2 ** i
+        count = remaining // denomination
+        remaining = remaining % denomination
+        coins.append((denomination, count))
+
+    return coins  
+```
 
 
 
-- **3b.** Optimality proof
+- **3b.** Optimality proof  
+The optimal solution for this problem is to return a combination of the minimum total number of coins that will 
 
 
 
