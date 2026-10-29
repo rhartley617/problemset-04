@@ -139,7 +139,7 @@ For $\sum_{i=0}^{k-1}2^i$ where $a = 1, r = 2$ this gives us $1 \cdot \frac{1 - 
 Consider the division algorithm with remainder $r$, total coin value $N$, and number of largest denomination coins $q$, and largest denomination value $d$:  
 $N = qd + r$ where $q = \lfloor\frac{N}{d}\rfloor$ and $0 \leq r < d$  
 This gives us: $N = q2^k + r, 0 \leq r < 2^k$ where $q = \lfloor\frac{N}{2^k}\rfloor$  
-This matches the greedy choice.  
+This shows that an optimal solution must contain $q$ coins of the largest denomination $2^k$, and that the maximum value of the smaller denomination coins will be at most $2^k -1$. This matches the greedy choice.  
 
     Suppose an optimal solution for $N$ contains the greedy choice of $q$ largest coins, but the solution for the remainder $r$ is not optimal. This would mean that a solution for $r$ that uses less coins exists, and that replacing the original solution for $r$ with this new solution would reduce the total number of coins used to get $N$. This would contradict the assumption that the original solution was optimal, and would require that the remaining amount also be solved optimally. Therefore the optimal substructure property holds. The greedy algorithm produces the minimum number of coins  
 
@@ -150,15 +150,17 @@ This matches the greedy choice.
 
 
 - **3c.** Work and span of your algorithm  
-Each iteration of the non-parallel recursive algoritm greedyCoins performs one calculation for the denomination value, one integer floor division to get the number of coins, one modulo operation to determine the remainder, and one insertion into the output. Assuming all of these are constant work:  
-$W(n) = \sum_{i=0}^{n}\Theta(1)$  
-$W(n) = (k + 1) \cdot \Theta(1)$  
+Each iteration of the sequential algoritm greedyCoins performs one calculation for the denomination value, one integer floor division to get the number of coins, one modulo operation to determine the remainder, and one insertion into the output. Assuming all of these are constant work:  
+$W(k) = \sum_{i=0}^{k}\Theta(1)$  
+$W(k) = (k + 1) \cdot \Theta(1)$  
+$W(k) =\Theta(k + 1)$  
+$W(k) = \Theta(k)$  
   
-  $\boxed{W(n) \in \Theta(n)}$  
+  $\boxed{W(k) \in \Theta(k)}$  
   
     There is no parallelism, so span = work.  
     
-    $\boxed{S(n) \in \Theta(n)}$
+    $\boxed{S(k) \in \Theta(k)}$
 
 
 
