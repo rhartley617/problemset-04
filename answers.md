@@ -149,7 +149,16 @@ This matches the greedy choice.
 
 
 
-- **3c.** Work and span of your algorithm
+- **3c.** Work and span of your algorithm  
+Each iteration of the non-parallel recursive algoritm greedyCoins performs one calculation for the denomination value, one integer floor division to get the number of coins, one modulo operation to determine the remainder, and one insertion into the output. Assuming all of these are constant work:  
+$W(n) = \sum_{i=0}^{n}\Theta(1)$  
+$W(n) = (k + 1) \cdot \Theta(1)$  
+  
+  $\boxed{W(n) \in \Theta(n)}$  
+  
+    There is no parallelism, so span = work.  
+    
+    $\boxed{S(n) \in \Theta(n)}$
 
 
 
