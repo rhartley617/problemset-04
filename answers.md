@@ -209,9 +209,19 @@ A problem has the optimal substructure property if an optimal solution to the pr
         return OPT[N], coins
     ```
     This bottom up dynamic programming algorithm uses the optimal substructure property to solve the coin problem with arbitrary denominations. For each integer amount $n$ between $1$ and $N$, $OPT$ stores the minimum amount of coins required to make amount $n$, with $OPT[0] = 0$ and $OPT[n] = \infty$ indicating no solution with the provided denominations. The corresponding denomination of the coin that produced the best solution to the subproblem at $OPT[n]$ is stored in $chosen[n]$.  
-    After optimal solutions to all the subproblems are memoized, the correct denominations for the optimal solution to $N$ are selected by the final while loop. The number of coins and a list of the coin denominations in the optimal solution are then returned.  
+    After optimal solutions to all the subproblems are tabulated, the correct denominations for the optimal solution to $N$ are selected by the final while loop. The number of coins and a list of the coin denominations in the optimal solution are then returned.  
 
-    
+    The work of the algorithm is most concentrated in the nested loop at the top. The outer $N$ loop runs N times. The inner $denominations$ loop runs $k +1$ times, doing $\Theta(1)$ work each time.  
+
+    $W(N,k) = \sum_{n=1}^N \cdot \sum_{i=0}^k\Theta(1)$  
+    $W(N,k) = \sum_{n=1}^N\Theta(k + 1)$  
+    $W(N,k) = \Theta(N(k + 1))$  
+
+    $\boxed{W(N,k) \in \Theta(Nk)}$  
+
+    The algorithm has no parallelism, so span is equal to work.  
+
+    $\boxed{S(N,k) \in \Theta(Nk)}$
 
 
 
