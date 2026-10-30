@@ -225,7 +225,24 @@ A problem has the optimal substructure property if an optimal solution to the pr
 
 
 
-- **5a.** Weighted task selection: Optimal substructure?
+- **5a.** Weighted task selection: Optimal substructure?  
+A problem has the optimal substructure property if an optimal solution to the problem contains optimal solutions to its subproblems.  
+Consider a set of tasks $S$, where each task $t$ has a start time $s$, end time $e$, and value $v$. The goal of weighted task selection is to maximize the sum of the value of non-overlapping tasks selected:  
+$t_i = (s_i,e_i,v_i)$  
+$max(\sum_{t_i \in S} v_i)$  
+First, sort all the tasks by increasing end time $e_i$.
+Let $OPT(i)$ represent the maximum value that can be obtained from the first $i$ tasks i.e. $\{1, 2, \dots, (i -1), i\}$  
+There are two things that can happen:
+
+    $OPT[i]$ can exclude task $i$ i.e. $\{1, 2, \dots, (i -1)\}$, which would mean that the optimal solution comes from the first $(i - 1)$ tasks, leaving us with a total value of $OPT(i -1)$  
+
+    $OPT[i]$ can include task $i$ i.e. $\{1, 2, \dots, (i - 1), i\}$. In this case, we can't include tasks that overlap with $t_i$. If $t_j$ is the the last task that begins before $t_i$ ends and their index values are $i$ and $j$, respectively, then $t_j = max\{j < i : e_j \leq s_i\}$.. This gives us a total value of $v_i + OPT(j)$  
+
+    If the optimal solution includes $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $i$ tasks. If this selected group of tasks is not optimal, then that would imply that there is a better solution to be had by picking a different combination of tasks, which would contradict the assumption that our original solution was optimal. The same holds true for $OPT(i - 1)$ if we choose to exclude $t_i$.
+
+    If the optimal solution does not include $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $(i - 1)$ tasks.  
+
+    Therefore, the optimal solution to weighted task selection contains optimal solutions to its relevant subproblems, which proves optimal substructure.$\blacksquare$
 
 
 
