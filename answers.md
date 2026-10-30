@@ -183,7 +183,6 @@ A problem has the optimal substructure property if an optimal solution to the pr
 
 - **4c.** Fortuito dynamic programming algorithm  
     ```python
-
     def minCoins(N, denominations):
         OPT = [float('inf')] * (N + 1)
         chosen = [None] * (N + 1)
@@ -208,15 +207,11 @@ A problem has the optimal substructure property if an optimal solution to the pr
             remaining -= d
 
         return OPT[N], coins
-
-
-    print(minCoins(6, [1, 3, 4]))
-    # (2, [3, 3])
-
-    print(minCoins(5, [2, 4]))
-    # None: impossible to make 5
     ```
+    This bottom up dynamic programming algorithm uses the optimal substructure property to solve the coin problem with arbitrary denominations. For each integer amount $n$ between $1$ and $N$, $OPT$ stores the minimum amount of coins required to make amount $n$, with $OPT[0] = 0$ and $OPT[n] = \infty$ indicating no solution with the provided denominations. The corresponding denomination of the coin that produced the best solution to the subproblem at $OPT[n]$ is stored in $chosen[n]$.  
+    After optimal solutions to all the subproblems are memoized, the correct denominations for the optimal solution to $N$ are selected by the final while loop. The number of coins and a list of the coin denominations in the optimal solution are then returned.  
 
+    
 
 
 
