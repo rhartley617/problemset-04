@@ -255,9 +255,33 @@ There are two things that can happen:
 
 
 
-- **5b.** Does the greedy choice property hold?
+- **5b.** Does the greedy choice property hold?  
+No, not for selecting weighted task scheduling. The greedy algorithm that selects for earliest finishing time does produce an optimal solution for unweighted task scheduling, but it doesn't guarantee an optimal solution for weighted task scheduling. The greedy algorithm that selects for highest value task also fails to produce an optimal solution for weighted task scheduling.  
 
+    Counterexample 1: Earliest Finishing Time  
 
+    Consider these tasks:  
+    | Task | Start |  End   | Value |
+    |------|-------|--------|-------|
+    | A    | 0     | 2      | 2     |
+    | B    | 2     | 4      | 2     |
+    | C    | 0     | 4      | 10    |
+  
+  Using earliest finsihing time, greedy will choose tasks $A$ and $B$. $2 + 2 = 4$  
+  The optimal solution is to choose task C, giving a value of $10$.  
+
+  Counterexample 2: Highest Value Task  
+
+    | Task | Start |  End   | Value |
+    |------|-------|--------|-------|
+    | A    | 0     | 4      | 9     |
+    | B    | 0     | 2      | 6     |
+    | C    | 2     | 4      | 6     |  
+
+    Using highest value task, greedy will choose task $A$ for a value of 9.  
+    The optimal solution is to choose tasks $B$ and $C$. $6 + 6 = 12$.  
+
+    Neither greedy strategy can guarantee an optimal solution to weighted task scheduling.
 
 
 - **5c.** Dynamic programming algorithm for Weighted Task Selection
