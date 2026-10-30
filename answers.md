@@ -236,13 +236,22 @@ There are two things that can happen:
 
     $OPT[i]$ can exclude task $i$ i.e. $\{1, 2, \dots, (i -1)\}$, which would mean that the optimal solution comes from the first $(i - 1)$ tasks, leaving us with a total value of $OPT(i -1)$  
 
-    $OPT[i]$ can include task $i$ i.e. $\{1, 2, \dots, (i - 1), i\}$. In this case, we can't include tasks that overlap with $t_i$. If $t_j$ is the the last task that begins before $t_i$ ends and their index values are $i$ and $j$, respectively, then $t_j = max\{j < i : e_j \leq s_i\}$.. This gives us a total value of $v_i + OPT(j)$  
+    $OPT[i]$ can include task $i$ i.e. $\{1, 2, \dots, (i - 1), i\}$. In this case, we can't include tasks that overlap with $t_i$. If $t_j$ is the the last task that ends no later than $t_i$ begins and their index values are $i$ and $j$, respectively, then $j = max\{k < i : e_k \leq s_i\}$ or $j = 0$ if no such task exists. This gives us a total value of $v_i + OPT(j)$  
 
-    If the optimal solution includes $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $i$ tasks. If this selected group of tasks is not optimal, then that would imply that there is a better solution to be had by picking a different combination of tasks, which would contradict the assumption that our original solution was optimal. The same holds true for $OPT(i - 1)$ if we choose to exclude $t_i$.
+    If the optimal solution includes $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $j$ tasks. If this selected group of tasks is not optimal, then that would imply that there is a better solution to be had by picking a different combination of tasks, which would contradict the assumption that our original solution was optimal. The same holds true for $OPT(i - 1)$ if we choose to exclude $t_i$.  
 
-    If the optimal solution does not include $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $(i - 1)$ tasks.  
+    The recurrence this implies is:  
+    $
+    \boxed{
+    OPT(i)=
+    \begin{cases}
+    0 & \text{if } i=0\\
+    \max\{OPT(i-1),v_i+OPT(j)\} & \text{if } i\geq1
+    \end{cases}
+    }
+    $
 
-    Therefore, the optimal solution to weighted task selection contains optimal solutions to its relevant subproblems, which proves optimal substructure.$\blacksquare$
+    Therefore, in both cases, an optimal solution to weighted task selection contains an optimal solution to its relevant subproblem, proving that weighted task selection has the optimal substructure property.$\blacksquare$
 
 
 
