@@ -304,7 +304,7 @@ def weightedTaskSelection(tasks):
     # Create the array (work).
     ends = [tasks[i][1] for i in range(1, n + 1)]
 
-    # Find the last compatible preceding task with binary search (work)
+    # Find the last compatible preceding task with binary search (work).
     for i in range(1, n + 1):
         p[i] = bisect_right(ends, tasks[i][0], 0, i - 1)
 
@@ -334,9 +334,27 @@ def weightedTaskSelection(tasks):
 
     selected.reverse()
 
+    # Return total weighted task value, list of selected tasks.
     return OPT[n], selected
-
-# (12, [(0, 2, 6), (2, 4, 6)])
 ```
+Work:
+Sort tasks: $W(n) \in \Theta(n\log n)$  
+Create the array: $W(n) \in \Theta(n)$  
+Find the last compatible preceding task with binary search: $W(n) \in \Theta(n\log n)$  
+Build OPT and chosen: $W(n) \in \Theta(n)$  
+Reconstruct the selected tasks: $W(n) \in \Theta(n)$  
+
+Total work for weightedTaskSelection:  
+$W_{wt}(n) = \Theta(n\log n) + \Theta(n) + \Theta(n\log n) + \Theta(n)$  
+$W_{wt}(n) = 2\Theta(n\log n) + 2\Theta(n)$  
+
+$\boxed{W_{wt}(n) \in \Theta(n\log n)}$
+
+Span:  
+There is no parallelism in the algorithm. Span = work. 
+
+$\boxed{S_{wt}(n) \in \Theta(n\log n)}$
+
+
 
 
