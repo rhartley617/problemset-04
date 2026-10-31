@@ -114,6 +114,7 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 - **3a.** Greedy algorithm for making change  
     ```python
+
         def greedyCoins(N, k):
         coins = []
         remaining = N
@@ -125,6 +126,7 @@ $\boxed{S_{total} \in \Theta(n)}$
             coins.append((denomination, count))
 
         return coins  
+
     ```
 
 
@@ -182,7 +184,8 @@ A problem has the optimal substructure property if an optimal solution to the pr
 
 
 - **4c.** Fortuito dynamic programming algorithm  
-    ```python
+    ```python  
+
     def minCoins(N, denominations):
         OPT = [float('inf')] * (N + 1)
         chosen = [None] * (N + 1)
@@ -206,7 +209,8 @@ A problem has the optimal substructure property if an optimal solution to the pr
             coins.append(d)
             remaining -= d
 
-        return OPT[N], coins
+        return OPT[N], coins  
+
     ```
     This bottom up dynamic programming algorithm uses the optimal substructure property to solve the coin problem with arbitrary denominations. For each integer amount $n$ between $1$ and $N$, $OPT$ stores the minimum number of coins required to make amount $n$, with $OPT[0] = 0$ and $OPT[n] = \infty$ indicating no solution with the provided denominations. The corresponding denomination of the coin that produced the best solution to the subproblem at $OPT[n]$ is stored in $chosen[n]$.  
     After optimal solutions to all the subproblems are tabulated, the correct denominations for the optimal solution to $N$ are selected by the final while loop. The number of coins and a list of the coin denominations in the optimal solution are then returned.  
@@ -285,7 +289,8 @@ No, not for selecting weighted task scheduling. The greedy algorithm that select
 
 
 - **5c.** Dynamic programming algorithm for Weighted Task Selection  
-    ```python
+    ```python  
+
     from bisect import bisect_right
 
     def weightedTaskSelection(tasks):
@@ -334,7 +339,8 @@ No, not for selecting weighted task scheduling. The greedy algorithm that select
         selected.reverse()
 
         # Return total weighted task value, list of selected tasks.
-        return OPT[n], selected
+        return OPT[n], selected  
+        
     ```
     Work:
     Sort tasks: $W(n) \in \Theta(n\log n)$  
