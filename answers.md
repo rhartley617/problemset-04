@@ -284,4 +284,59 @@ No, not for selecting weighted task scheduling. The greedy algorithm that select
     Neither greedy strategy can guarantee an optimal solution to weighted task scheduling.
 
 
-- **5c.** Dynamic programming algorithm for Weighted Task Selection
+- **5c.** Dynamic programming algorithm for Weighted Task Selection  
+```python
+
+from bisect import bisect_right
+
+def weightedTaskSelection(tasks):
+    # Sort tasks (work). Each task is 3 tuple (start, end, value).
+    tasks = sorted(tasks, key=lambda t: t[1])
+    n = len(tasks)
+
+    # Use 1-based indexing.
+    tasks = [None] + tasks
+
+    OPT = [0] * (n + 1)
+    chosen = [False] * (n + 1)
+    p = [0] * (n + 1)
+
+    # Create the array (work).
+    ends = [tasks[i][1] for i in range(1, n + 1)]
+
+    # Find the last compatible preceding task with binary search (work)
+    for i in range(1, n + 1):
+        p[i] = bisect_right(ends, tasks[i][0], 0, i - 1)
+
+    OPT[0] = 0
+
+    # Build OPT and chosen (work).
+    for i in range(1, n + 1):
+        exclude = OPT[i - 1]
+        include = tasks[i][2] + OPT[p[i]]
+
+        if include > exclude:
+            OPT[i] = include
+            chosen[i] = True
+        else:
+            OPT[i] = exclude
+
+    # Reconstruct the selected tasks (work).
+    selected = []
+    i = n
+
+    while i > 0:
+        if chosen[i]:
+            selected.append(tasks[i])
+            i = p[i]
+        else:
+            i -= 1
+
+    selected.reverse()
+
+    return OPT[n], selected
+
+# (12, [(0, 2, 6), (2, 4, 6)])
+```
+
+
