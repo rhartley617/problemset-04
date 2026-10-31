@@ -116,16 +116,16 @@ $\boxed{S_{total} \in \Theta(n)}$
   
     ```python
         def greedyCoins(N, k):
-        coins = []
-        remaining = N
+            coins = []
+            remaining = N
 
-        for i in range(k, -1, -1):
-            denomination = 2 ** i
-            count = remaining // denomination
-            remaining = remaining % denomination
-            coins.append((denomination, count))
+            for i in range(k, -1, -1):
+                denomination = 2 ** i
+                count = remaining // denomination
+                remaining = remaining % denomination
+                coins.append((denomination, count))
 
-        return coins  
+            return coins  
     ```
 
 
@@ -243,7 +243,7 @@ There are two things that can happen:
     If the optimal solution includes $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $j$ tasks. If this selected group of tasks is not optimal, then that would imply that there is a better solution to be had by picking a different combination of tasks, which would contradict the assumption that our original solution was optimal. The same holds true for $OPT(i - 1)$ if we choose to exclude $t_i$.  
 
     The recurrence this implies is:  
-    $
+    $$
     \boxed{
     OPT(i)=
     \begin{cases}
@@ -251,7 +251,7 @@ There are two things that can happen:
     \max\{OPT(i-1),v_i+OPT(j)\} & \text{if } i\geq1
     \end{cases}
     }
-    $
+    $$
 
     Therefore, in both cases, an optimal solution to weighted task selection contains an optimal solution to its relevant subproblem, proving that weighted task selection has the optimal substructure property.$\blacksquare$
 
@@ -259,10 +259,10 @@ There are two things that can happen:
 
 - **5b.** Does the greedy choice property hold?  
 No, not for selecting weighted task scheduling. The greedy algorithm that selects for earliest finishing time does produce an optimal solution for unweighted task scheduling, but it doesn't guarantee an optimal solution for weighted task scheduling. The greedy algorithm that selects for highest value task also fails to produce an optimal solution for weighted task scheduling.  
+Consider these tasks:  
 
     Counterexample 1: Earliest Finishing Time  
 
-    Consider these tasks:  
     | Task | Start |  End   | Value |
     |------|-------|--------|-------|
     | A    | 0     | 2      | 2     |
