@@ -9,18 +9,18 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 
 
-- **1d.**
+- **1d.**  
 
-File | Fixed-Length Coding | Huffman Coding | Huffman vs. Fixed-Length
-----------------------------------------------------------------------
-f1.txt    |      $1340$               |     $826$           |  $0.6164$
-alice29.txt    |         $1039367$            |         $676374$       |  $0.6508$
-asyoulik.txt    |         $876253$            |        $606448$        |  $0.6921$
-grammar.lsp    |            $26047$         |     $17356$           |  $0.6663$
-fields.c    |            $78050$         |        $56206$        |  $0.7201$
-
-The pattern that emerges is that:  
-Huffman cost $\leq$ Fixed-Length cost. This is because Huffman coding achieves a lower encoding cost relative to Fixed Length by assigning shorter binary codes to more frequently used characters and longer codes to less frequently used characters. The more uneven the distribution between frequencies of the characters being used in a document, the greater the Huffman cost reduction we'd expect to see. Our samples reflect that, and show a cost reduction range of roughly 28% - 38%.  
+    | File | Fixed-Length Coding | Huffman Coding | Huffman vs. Fixed-Length |
+    |---|---:|---:|---:|
+    | f1.txt | 1340 | 826 | 0.6164 |
+    | alice29.txt | 1039367 | 676374 | 0.6508 |
+    | asyoulik.txt | 876253 | 606448 | 0.6921 |
+    | grammar.lsp | 26047 | 17356 | 0.6663 |
+    | fields.c | 78050 | 56206 | 0.7201 |
+    
+    The pattern that emerges is that:  
+    Huffman cost $\leq$ Fixed-Length cost. This is because Huffman coding achieves a lower encoding cost relative to Fixed Length by assigning shorter binary codes to more frequently used characters and longer codes to less frequently used characters. The more uneven the distribution between frequencies of the characters being used in a document, the greater the Huffman cost reduction we'd expect to see. Our samples reflect that, and show a cost reduction range of roughly 28% - 38%.  
 
 - **1e.**  
 When all characters in alphabet $\sum$ have the same frequency, Huffman coding produces either a balanced or near balanced tree.  
