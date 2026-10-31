@@ -20,7 +20,7 @@ grammar.lsp    |            $26047$         |     $17356$           |  $0.6663$
 fields.c    |            $78050$         |        $56206$        |  $0.7201$
 
 The pattern that emerges is that:  
-Huffman cost $\leq$ Fixed-Length cost. This is because Huffman coding achieves a lower encoding cost relative to Fixed Length by assigning shorter binary codes to more frequently used characters and longer codes to less fequently used characters. The more uneven the distribution between frequencies of the characters being used in a document, the greater the Huffman cost reduction we'd expect to see. Our samples reflect that, and show a cost recution range of roughly 28% - 38%.  
+Huffman cost $\leq$ Fixed-Length cost. This is because Huffman coding achieves a lower encoding cost relative to Fixed Length by assigning shorter binary codes to more frequently used characters and longer codes to less frequently used characters. The more uneven the distribution between frequencies of the characters being used in a document, the greater the Huffman cost reduction we'd expect to see. Our samples reflect that, and show a cost reduction range of roughly 28% - 38%.  
 
 - **1e.**  
 When all characters in alphabet $\sum$ have the same frequency, Huffman coding produces either a balanced or near balanced tree.  
@@ -34,7 +34,7 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
 
     $A_b = h + 1 - \frac{2^h}{c}$  
 
-    If we have $n$ total number of characters in our document and the frequency of each distinct charactor is the same, then the Huffman coding cost would be:  
+    If we have $n$ total number of characters in our document and the frequency of each distinct character is the same, then the Huffman coding cost would be:  
 
     $\boxed{\text{Huffman Cost} = n \cdot \left(h + 1 - \frac{2^h}{c}\right)}$  
 
@@ -47,7 +47,7 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
 
 - **2a.** Construct a binary min-heap algorithm  
 
-    This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working it's way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an inernal node in the list, and all other index values below it will also represent internal nodes, we then decrement the index and repeat the process until we reach the root node. The min-heap is now built.  
+    This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working it's way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an internal node in the list, and all other index values below it will also represent internal nodes, we then decrement the index and repeat the process until we reach the root node. The min-heap is now built.  
 
     ```python
     def sift_down(A, i, n):
@@ -131,7 +131,7 @@ $\boxed{S_{total} \in \Theta(n)}$
 
 - **3b.** Optimality proof  
 The optimal solution for this problem is to return a combination of the minimum total number of coins that, based on their denomination, will add up to a total of $N$.  
-The denomination we are using are coins that are in denominations of powers of 2. Consider any denomination valued $2^i$, with $2^k$ representing the maximum denonmination that can be used to divide the total value $N$.  
+The denomination we are using are coins that are in denominations of powers of 2. Consider any denomination valued $2^i$, with $2^k$ representing the maximum denomination that can be used to divide the total value $N$.  
 Any 2 coins of denomination $2^i$ can be replaced by one coin of the next highest denomination: $2^i + 2^i = 2^{i+1}$ Therefore an optimal solution cannot contain any more than 1 coin of any denomination smaller than $2^k$.  
 The total value of these coins smaller than $2^k$ would be $\sum_{i=0}^{k-1}2^i$  
 Finite Geometric series formula: $\sum_{i=0}^{n-1} ar^i = a \cdot \frac{1 - r^n}{1 - r}$  
@@ -143,14 +143,14 @@ This shows that an optimal solution must contain $q$ coins of the largest denomi
 
     Suppose an optimal solution for $N$ contains the greedy choice of $q$ largest coins, but the solution for the remainder $r$ is not optimal. This would mean that a solution for $r$ that uses less coins exists, and that replacing the original solution for $r$ with this new solution would reduce the total number of coins used to get $N$. This would contradict the assumption that the original solution was optimal, and would require that the remaining amount also be solved optimally. Therefore the optimal substructure property holds. The greedy algorithm produces the minimum number of coins  
 
-    The greedy alogrithm is optimal $\blacksquare$
+    The greedy algorithm is optimal $\blacksquare$
 
 
 
 
 
 - **3c.** Work and span of your algorithm  
-Each iteration of the sequential algoritm greedyCoins performs one calculation for the denomination value, one integer floor division to get the number of coins, one modulo operation to determine the remainder, and one insertion into the output. Assuming all of these are constant work:  
+Each iteration of the sequential algorithm greedyCoins performs one calculation for the denomination value, one integer floor division to get the number of coins, one modulo operation to determine the remainder, and one insertion into the output. Assuming all of these are constant work:  
 $W(k) = \sum_{i=0}^{k}\Theta(1)$  
 $W(k) = (k + 1) \cdot \Theta(1)$  
 $W(k) =\Theta(k + 1)$  
@@ -165,7 +165,7 @@ $W(k) = \Theta(k)$
 
 
 - **4a.** Fortuito counter example proof  
-Suppose we have denonimations $D = {1,3,4}$ and a goal amount of $N$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not always optimal with arbitrary denominations like the ones in Fortuito. $\blacksquare$
+Suppose we have denominations $D = {1,3,4}$ and a goal amount of $N$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not always optimal with arbitrary denominations like the ones in Fortuito. $\blacksquare$
 
 
 
@@ -236,7 +236,7 @@ There are two things that can happen:
 
     $OPT[i]$ can exclude task $i$ i.e. $\{1, 2, \dots, (i -1)\}$, which would mean that the optimal solution comes from the first $(i - 1)$ tasks, leaving us with a total value of $OPT(i -1)$  
 
-    $OPT[i]$ can include task $i$ i.e. $\{1, 2, \dots, (i - 1), i\}$. In this case, we can't include tasks that overlap with $t_i$. If $t_j$ is the the last task that ends no later than $t_i$ begins and their index values are $i$ and $j$, respectively, then $j = max\{k < i : e_k \leq s_i\}$ or $j = 0$ if no such task exists. This gives us a total value of $v_i + OPT(j)$  
+    $OPT[i]$ can include task $i$ i.e. $\{1, 2, \dots, (i - 1), i\}$. In this case, we can't include tasks that overlap with $t_i$. If $t_j$ is the last task that ends no later than $t_i$ begins and their index values are $i$ and $j$, respectively, then $j = max\{k < i : e_k \leq s_i\}$ or $j = 0$ if no such task exists. This gives us a total value of $v_i + OPT(j)$  
 
     If the optimal solution includes $t_i$, and the tasks are all sorted by increasing finish time, then all the compatible tasks for the optimal solution must come from the first $j$ tasks. If this selected group of tasks is not optimal, then that would imply that there is a better solution to be had by picking a different combination of tasks, which would contradict the assumption that our original solution was optimal. The same holds true for $OPT(i - 1)$ if we choose to exclude $t_i$.  
 
@@ -267,7 +267,7 @@ No, not for selecting weighted task scheduling. The greedy algorithm that select
     | B    | 2     | 4      | 2     |
     | C    | 0     | 4      | 10    |
   
-  Using earliest finsihing time, greedy will choose tasks $A$ and $B$. $2 + 2 = 4$  
+  Using earliest finishing time, greedy will choose tasks $A$ and $B$. $2 + 2 = 4$  
   The optimal solution is to choose task C, giving a value of $10$.  
 
   Counterexample 2: Highest Value Task  
