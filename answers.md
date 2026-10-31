@@ -47,7 +47,7 @@ Let characters $c = |\sum|$ and tree height ceiling $h = \lceil\log_2c\rceil$. T
 
 - **2a.** Construct a binary min-heap algorithm  
 
-    This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working it's way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an internal node in the list, and all other index values below it will also represent internal nodes, we then decrement the index and repeat the process until we reach the root node. The min-heap is now built.  
+    This algorithm would be a bottom up algorithm, starting at the bottom right internal node (not the leaves) and working its way up the tree. For each node, the node value is compared to its children. If the parent value isn't already the lowest value, it is swapped with the lowest child value, which becomes the new parent. Because the bottom right internal node will also have the highest index value for an internal node in the list, and all other index values below it will also represent internal nodes, we then decrement the index and repeat the process until we reach the root node. The min-heap is now built.  
 
     ```python
     def sift_down(A, i, n):
@@ -141,7 +141,7 @@ $N = qd + r$ where $q = \lfloor\frac{N}{d}\rfloor$ and $0 \leq r < d$
 This gives us: $N = q2^k + r, 0 \leq r < 2^k$ where $q = \lfloor\frac{N}{2^k}\rfloor$  
 This shows that an optimal solution must contain $q$ coins of the largest denomination $2^k$, and that the maximum value of the smaller denomination coins will be at most $2^k -1$. This matches the greedy choice.  
 
-    Suppose an optimal solution for $N$ contains the greedy choice of $q$ largest coins, but the solution for the remainder $r$ is not optimal. This would mean that a solution for $r$ that uses less coins exists, and that replacing the original solution for $r$ with this new solution would reduce the total number of coins used to get $N$. This would contradict the assumption that the original solution was optimal, and would require that the remaining amount also be solved optimally. Therefore the optimal substructure property holds. The greedy algorithm produces the minimum number of coins  
+    Suppose an optimal solution for $N$ contains the greedy choice of $q$ largest coins, but the solution for the remainder $r$ is not optimal. This would mean that a solution for $r$ that uses less coins exists, and that replacing the original solution for $r$ with this new solution would reduce the total number of coins used to get $N$. This would contradict the assumption that the original solution was optimal, and would require that the remaining amount also be solved optimally. Therefore the optimal substructure property holds. The greedy algorithm produces the minimum number of coins.  
 
     The greedy algorithm is optimal $\blacksquare$
 
@@ -165,7 +165,7 @@ $W(k) = \Theta(k)$
 
 
 - **4a.** Fortuito counter example proof  
-Suppose we have denominations $D = {1,3,4}$ and a goal amount of $N$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not always optimal with arbitrary denominations like the ones in Fortuito. $\blacksquare$
+Suppose we have denominations $D = {1,3,4}$ and a goal amount of $N = 6$. The greedy algorithm from Geometrica problem 3 will select coins $4 + 1 + 1 = 6$, which will give us the solution in 3 coins. The optimal solution to this problem is $3 + 3 = 6$, which gives us the solution in two coins. Therefore the greedy algorithm is not always optimal with arbitrary denominations like the ones in Fortuito. $\blacksquare$
 
 
 
@@ -208,7 +208,7 @@ A problem has the optimal substructure property if an optimal solution to the pr
 
         return OPT[N], coins
     ```
-    This bottom up dynamic programming algorithm uses the optimal substructure property to solve the coin problem with arbitrary denominations. For each integer amount $n$ between $1$ and $N$, $OPT$ stores the minimum amount of coins required to make amount $n$, with $OPT[0] = 0$ and $OPT[n] = \infty$ indicating no solution with the provided denominations. The corresponding denomination of the coin that produced the best solution to the subproblem at $OPT[n]$ is stored in $chosen[n]$.  
+    This bottom up dynamic programming algorithm uses the optimal substructure property to solve the coin problem with arbitrary denominations. For each integer amount $n$ between $1$ and $N$, $OPT$ stores the minimum number of coins required to make amount $n$, with $OPT[0] = 0$ and $OPT[n] = \infty$ indicating no solution with the provided denominations. The corresponding denomination of the coin that produced the best solution to the subproblem at $OPT[n]$ is stored in $chosen[n]$.  
     After optimal solutions to all the subproblems are tabulated, the correct denominations for the optimal solution to $N$ are selected by the final while loop. The number of coins and a list of the coin denominations in the optimal solution are then returned.  
 
     The work of the algorithm is most concentrated in the nested loop at the top. The outer $N$ loop runs N times. The inner $denominations$ loop runs $k +1$ times, doing $\Theta(1)$ work each time.  
@@ -289,7 +289,7 @@ No, not for selecting weighted task scheduling. The greedy algorithm that select
     from bisect import bisect_right
 
     def weightedTaskSelection(tasks):
-        # Sort tasks (work). Each task is 3 tuple (start, end, value).
+        # Sort tasks (work). Each task is a 3-tuple (start, end, value).
         tasks = sorted(tasks, key=lambda t: t[1])
         n = len(tasks)
 
